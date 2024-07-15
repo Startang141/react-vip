@@ -1,7 +1,7 @@
-const Button = () =>{
+const Button = (props) =>{
     return(
-        <button class="h-10 px-6 font-semibold rounded-md bg-black text-white" type="submit">
-                 Buy now
+        <button className={`h-10 px-6 font-semibold rounded-md ${props.variant} text-white`} type="submit">
+                 {props.text}
         </button>
     )
 }
