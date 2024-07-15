@@ -1,7 +1,8 @@
 const Button = (props) =>{
+    const { variant="bg-black", text="Button"} = props;
     return(
-        <button className={`h-10 px-6 font-semibold rounded-md ${props.variant} text-white`} type="submit">
-                 {props.text}
+        <button className={`h-10 px-6 font-semibold rounded-md ${variant} text-white`} type="submit">
+                 {text}
         </button>
     )
 }
