@@ -1,9 +1,12 @@
+import Button from "./Button"
 
 function App() {
 
   return (
     <div className="App">
-      <div className='font-bold text-4xl flex h-lvh items-center justify-center i bg-blue-600'>halo aku tirek</div>
+      <div className='flex min-h-screen items-center justify-center bg-blue-600'>
+        <Button />
+      </div>
     </div>
   )
 }
