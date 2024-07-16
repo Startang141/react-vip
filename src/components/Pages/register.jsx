@@ -4,14 +4,8 @@ import AuthLayout from "../Layouts/AuthLayout";
 
 const RegisterPage = () => {
   return (
-    <AuthLayout tittle="register">
+    <AuthLayout tittle="register" type="register">
       <FormRegister />
-      <p className="text-slate-500 mt-4 text-sm">
-        Already have account?{" "}
-        <Link to="/login" className="font-semibold text-blue-700">
-          Login
-        </Link>
-      </p>
     </AuthLayout>
   );
 };
