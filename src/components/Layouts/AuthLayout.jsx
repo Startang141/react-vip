@@ -11,26 +11,34 @@ const AuthLayout = (props) => {
             Welcome, please enter the details
           </p>
           {children}
-          <p className="text-slate-500 mt-4 text-sm">
-            {type === "login"
-              ? "Don't have account? "
-              : "Already have account? "}
-
-            {type === "login" && (
-              <Link to="/register" className="font-semibold text-blue-700">
-                Register
-              </Link>
-            )}
-            {type === "register" && (
-              <Link to="/login" className="font-semibold text-blue-700">
-                Login
-              </Link>
-            )}
-          </p>
+          {formNavigation({ type })}
         </div>
       </div>
     </div>
   );
+};
+
+const formNavigation = (props) => {
+  const { type } = props;
+  if (type === "login") {
+    return (
+      <p className="text-slate-500 mt-4 text-sm">
+        Don't have account?{" "}
+        <Link to="/register" className="font-semibold text-blue-700">
+          Register
+        </Link>
+      </p>
+    );
+  } else {
+    return (
+      <p className="text-slate-500 mt-4 text-sm">
+        Already have account?{" "}
+        <Link to="/login" className="font-semibold text-blue-700">
+          Login
+        </Link>
+      </p>
+    );
+  }
 };
 
 export default AuthLayout;
