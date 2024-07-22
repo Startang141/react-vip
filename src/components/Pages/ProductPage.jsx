@@ -21,7 +21,7 @@ const Productpage = () => {
   return (
     <div className="flex justify-center mt-20">
       {DataProduct.map((item) => (
-        <CardProduct>
+        <CardProduct key={item.id}>
           <CardProduct.ImageCard images={item.image}></CardProduct.ImageCard>
           <CardProduct.BodyCard tittle={item.title}>
             {item.description}
