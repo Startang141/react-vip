@@ -12,6 +12,15 @@ const Productpage = () => {
         </CardProduct.BodyCard>
         <CardProduct.FooterCard price="Rp. 500.000"></CardProduct.FooterCard>
       </CardProduct>
+      <CardProduct>
+        <CardProduct.ImageCard></CardProduct.ImageCard>
+        <CardProduct.BodyCard>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima
+          laudantium, aperiam possimus nihil alias consequuntur dicta aspernatur
+          repellat molestiae similique tempore aut eius.
+        </CardProduct.BodyCard>
+        <CardProduct.FooterCard></CardProduct.FooterCard>
+      </CardProduct>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import Button from "../Elements/Button/Button";
 const CardProduct = (props) => {
   const { children } = props;
   return (
-    <div className="bg-white shadow-md w-full max-w-sm rounded-lg">
+    <div className="bg-white shadow-md w-full max-w-sm rounded-lg mx-2">
       {children}
     </div>
   );
