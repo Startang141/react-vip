@@ -1,3 +1,4 @@
+import Button from "../Elements/Button/Button";
 import CardProduct from "../Fragments/CardProduct";
 
 const DataProduct = [
@@ -17,19 +18,36 @@ const DataProduct = [
   },
 ];
 
+const email = localStorage.getItem("email");
+
 const Productpage = () => {
+  const handleLogout = () => {
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+    window.location.href = "/login";
+  };
   return (
-    <div className="flex justify-center mt-20">
-      {DataProduct.map((item) => (
-        <CardProduct key={item.id}>
-          <CardProduct.ImageCard images={item.image}></CardProduct.ImageCard>
-          <CardProduct.BodyCard tittle={item.title}>
-            {item.description}
-          </CardProduct.BodyCard>
-          <CardProduct.FooterCard price={item.price}></CardProduct.FooterCard>
-        </CardProduct>
-      ))}
-    </div>
+    <>
+      <div className="shadow-md h-20 flex justify-end items-center">
+        {email}
+        <Button
+          text="Logout"
+          classname="mx-4 bg-black"
+          onClick={handleLogout}
+        />
+      </div>
+      <div className="flex justify-center mt-20">
+        {DataProduct.map((item) => (
+          <CardProduct key={item.id}>
+            <CardProduct.ImageCard images={item.image}></CardProduct.ImageCard>
+            <CardProduct.BodyCard tittle={item.title}>
+              {item.description}
+            </CardProduct.BodyCard>
+            <CardProduct.FooterCard price={item.price}></CardProduct.FooterCard>
+          </CardProduct>
+        ))}
+      </div>
+    </>
   );
 };
 
