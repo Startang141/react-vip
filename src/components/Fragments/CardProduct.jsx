@@ -3,7 +3,7 @@ import Button from "../Elements/Button/Button";
 const CardProduct = (props) => {
   const { children } = props;
   return (
-    <div className="bg-white shadow-md w-full max-w-sm rounded-lg mx-2 flex flex-col justify-between">
+    <div className="bg-white shadow-md w-full max-w-sm rounded-lg mx-2 flex flex-col justify-between border border-gray-200">
       {children}
     </div>
   );
@@ -33,7 +33,7 @@ const BodyCard = (props) => {
 };
 
 const FooterCard = (props) => {
-  const { price="Rp. 1.000.000" } = props;
+  const { price = "Rp. 1.000.000" } = props;
   return (
     <div className="flex items-center justify-between px-5 pb-4">
       <span className="font-semibold text-xl text-neutral-800 tracking-normal">
