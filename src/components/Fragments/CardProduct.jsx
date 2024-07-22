@@ -3,7 +3,7 @@ import Button from "../Elements/Button/Button";
 const CardProduct = (props) => {
   const { children } = props;
   return (
-    <div className="bg-white shadow-md w-full max-w-sm rounded-lg mx-2">
+    <div className="bg-white shadow-md w-full max-w-sm rounded-lg mx-2 flex flex-col justify-between">
       {children}
     </div>
   );
@@ -25,7 +25,7 @@ const ImageCard = (props) => {
 const BodyCard = (props) => {
   const { children, tittle = "Business Premium Elite" } = props;
   return (
-    <div className="px-5 py-2">
+    <div className="px-5 py-2 h-full">
       <h5 className="text-3xl tracking">{tittle}</h5>
       <p className="text-neutral-600 my-2">{children}</p>
     </div>
