@@ -1,6 +1,6 @@
+import { useState } from "react";
 import Button from "../Elements/Button/Button";
 import CardProduct from "../Fragments/CardProduct";
-import Counter from "../Fragments/Counter";
 
 const DataProduct = [
   {
@@ -14,6 +14,7 @@ const DataProduct = [
   {
     id: 2,
     title: "Business Premium Elite",
+    image: "/images/product-1.jpg",
     price: 1000000,
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
   },
@@ -22,10 +23,28 @@ const DataProduct = [
 const email = localStorage.getItem("email");
 
 const Productpage = () => {
+  const [cart, setCart] = useState([
+    {
+      id: 1,
+      qty: 1,
+    },
+  ]);
+
   const handleLogout = () => {
     localStorage.removeItem("email");
     localStorage.removeItem("password");
     window.location.href = "/login";
+  };
+  const handleAddToCart = (id) => {
+    if (cart.find((item) => item.id === id)) {
+      setCart(
+        cart.map((item) =>
+          item.id === id ? { ...item, qty: item.qty + 1 } : item
+        )
+      );
+    } else {
+      setCart([...cart, { id: id, qty: 1 }]);
+    }
   };
   return (
     <>
@@ -38,17 +57,55 @@ const Productpage = () => {
         />
       </div>
       <div className="flex justify-center mt-20">
-        {DataProduct.map((item) => (
-          <CardProduct key={item.id}>
-            <CardProduct.ImageCard images={item.image}></CardProduct.ImageCard>
-            <CardProduct.BodyCard tittle={item.title}>
-              {item.description}
-            </CardProduct.BodyCard>
-            <CardProduct.FooterCard price={item.price}></CardProduct.FooterCard>
-          </CardProduct>
-        ))}
+        <div className="w-4/6 flex">
+          {DataProduct.map((product) => (
+            <CardProduct key={product.id}>
+              <CardProduct.ImageCard
+                images={product.image}
+              ></CardProduct.ImageCard>
+              <CardProduct.BodyCard tittle={product.title}>
+                {product.description}
+              </CardProduct.BodyCard>
+              <CardProduct.FooterCard
+                price={product.price}
+                handleAddToCart={handleAddToCart}
+                id={product.id}
+              ></CardProduct.FooterCard>
+            </CardProduct>
+          ))}
+        </div>
+        <div className="w-2/6">
+          <h2 className="text-3xl font-semibold text-blue-600">Cart</h2>
+          <ul>
+            {cart.map((item) => {
+              return <li>{item.id}</li>;
+            })}
+          </ul>
+          <table className="table-auto border-separate text-left border-spacing-2">
+            <thead>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Total</th>
+            </thead>
+            <tbody>
+              {cart.map((item) => {
+                const product = DataProduct.find(
+                  (product) => product.id === item.id
+                );
+                return (
+                  <tr>
+                    <td>{product.title}</td>
+                    <td>{product.price}</td>
+                    <td>{item.qty}</td>
+                    <td>{product.price * item.qty}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <Counter />
     </>
   );
 };

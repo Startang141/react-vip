@@ -33,14 +33,18 @@ const BodyCard = (props) => {
 };
 
 const FooterCard = (props) => {
-  const { price = 1000000 } = props;
+  const { price = 1000000, handleAddToCart, id } = props;
   return (
     <div className="flex items-center justify-between px-5 pb-4">
       <span className="font-semibold text-xl text-neutral-800 tracking-normal">
         Rp.{" "}
         {price.toLocaleString("id-ID", { stlyes: "currency", currency: "IDR" })}
       </span>
-      <Button classname="bg-blue-700" text="Buy Now" />
+      <Button
+        classname="bg-blue-700 cursor-pointer"
+        text="Add to Cart"
+        onClick={() => handleAddToCart(id)}
+      />
     </div>
   );
 };
