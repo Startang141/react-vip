@@ -46,6 +46,10 @@ const Productpage = () => {
       setCart([...cart, { id: id, qty: 1 }]);
     }
   };
+
+  const deletedCart = (id) => {
+    setCart(cart.filter((item) => item.id !== id));
+  };
   return (
     <>
       <div className="shadow-md h-20 flex justify-end items-center">
@@ -99,6 +103,13 @@ const Productpage = () => {
                     <td>{product.price}</td>
                     <td>{item.qty}</td>
                     <td>{product.price * item.qty}</td>
+                    <td>
+                      <Button
+                        classname="bg-red-600"
+                        text="Delete"
+                        onClick={() => deletedCart(item.id)}
+                      />
+                    </td>
                   </tr>
                 );
               })}
