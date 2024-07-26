@@ -7,14 +7,14 @@ const DataProduct = [
     id: 1,
     image: "/images/product-1.jpg",
     title: "Corporate Premium Elite",
-    price: "Rp. 500.000",
+    price: 500000,
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima laudantium, aperiam possimus nihil alias consequuntur dicta aspernatur repellat molestiae similique tempore aut eius.",
   },
   {
-    id: 1,
+    id: 2,
     title: "Business Premium Elite",
-    price: "Rp. 1.000.000",
+    price: 1000000,
     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
   },
 ];
