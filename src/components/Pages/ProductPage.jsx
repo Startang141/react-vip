@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import Button from "../Elements/Button/Button";
 import CardProduct from "../Fragments/CardProduct";
@@ -23,12 +24,20 @@ const DataProduct = [
 const email = localStorage.getItem("email");
 
 const Productpage = () => {
-  const [cart, setCart] = useState([
-    {
-      id: 1,
-      qty: 1,
-    },
-  ]);
+  const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem("cart")) || []);
+  }, []);
+
+  useEffect(() => {
+    const sum = cart.reduce((acc, item) => {
+      const product = DataProduct.find((product) => product.id === item.id);
+      return acc + product.price * item.qty;
+    }, 0);
+    setTotalPrice(sum);
+  }, [cart]);
 
   const handleLogout = () => {
     localStorage.removeItem("email");
@@ -87,10 +96,12 @@ const Productpage = () => {
           </ul>
           <table className="table-auto border-separate text-left border-spacing-2">
             <thead>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th>Total</th>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+              </tr>
             </thead>
             <tbody>
               {cart.map((item) => {
@@ -100,7 +111,12 @@ const Productpage = () => {
                 return (
                   <tr>
                     <td>{product.title}</td>
-                    <td>{product.price}</td>
+                    <td>
+                      {product.price.toLocaleString("id-ID", {
+                        stlyes: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
                     <td>{item.qty}</td>
                     <td>{product.price * item.qty}</td>
                     <td>
@@ -113,6 +129,16 @@ const Productpage = () => {
                   </tr>
                 );
               })}
+              <tr className="font-bold">
+                <td colSpan={3}>Total Price</td>
+                <td className="col-span-2">
+                  Rp
+                  {totalPrice.toLocaleString("id-ID", {
+                    stlyes: "currency",
+                    currency: "IDR",
+                  })}
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
