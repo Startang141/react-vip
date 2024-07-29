@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useRef } from "react";
 import { useState } from "react";
 import Button from "../Elements/Button/Button";
 import CardProduct from "../Fragments/CardProduct";
@@ -59,6 +60,16 @@ const Productpage = () => {
   const deletedCart = (id) => {
     setCart(cart.filter((item) => item.id !== id));
   };
+
+  const viewTotalPrice = useRef(null);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      viewTotalPrice.current.style.display = "table-row";
+    } else {
+      viewTotalPrice.current.style.display = "none";
+    }
+  });
   return (
     <>
       <div className="shadow-md h-20 flex justify-end items-center">
@@ -129,7 +140,7 @@ const Productpage = () => {
                   </tr>
                 );
               })}
-              <tr className="font-bold">
+              <tr ref={viewTotalPrice} className="font-bold">
                 <td colSpan={3}>Total Price</td>
                 <td className="col-span-2">
                   Rp
