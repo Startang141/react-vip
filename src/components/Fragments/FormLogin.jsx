@@ -11,11 +11,17 @@ const FormLogin = () => {
   };
 
   const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   useEffect(() => {
     emailRef.current.focus();
   }, []);
 
+  const handleEmailChange = (event) => {
+    if (event.target.value.includes("@gmail.com")) {
+      passwordRef.current.focus();
+    }
+  };
   return (
     <form onSubmit={handleLogin}>
       <InputForm
@@ -24,13 +30,14 @@ const FormLogin = () => {
         placeholder="email@gmail.com"
         label="Email"
         ref={emailRef}
-        onKeyDown={handleEmailKeyDown}
+        onChange={handleEmailChange}
       />
       <InputForm
         name="password"
         type="password"
         placeholder="***"
         label="Password"
+        ref={passwordRef}
       />
       <Button classname="bg-blue-700 w-full" text="Login" type="submit" />
     </form>
