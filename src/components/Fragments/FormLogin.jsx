@@ -18,7 +18,7 @@ const FormLogin = () => {
   }, []);
 
   const handleEmailChange = (event) => {
-    if (event.target.value.includes("@gmail.com")) {
+    if (event.target.value.includes("@gmail.com") || event.target.value.includes("@deligy.com")) {
       passwordRef.current.focus();
     }
   };
