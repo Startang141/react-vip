@@ -1,11 +1,14 @@
+import { Link } from "react-router-dom";
 import Button from "../Elements/Button/Button";
 
 const CardProduct = (props) => {
-  const { children } = props;
+  const { children, id } = props;
   return (
-    <div className="bg-white shadow-md w-full max-w-xs rounded-lg mx-2 my-2 flex flex-col justify-between border border-gray-200">
-      {children}
-    </div>
+    <Link to={`/products/${id}`}>
+      <div className="bg-white shadow-md w-full max-w-xs rounded-lg mx-2 my-2 flex flex-col justify-between border border-gray-200">
+        {children}
+      </div>
+    </Link>
   );
 };
 
@@ -26,8 +29,8 @@ const BodyCard = (props) => {
   const { children, tittle = "Business Premium Elite" } = props;
   return (
     <div className="px-5 py-2 h-full">
-      <h5 className="text-3xl tracking">{tittle.substring(0,10)}...</h5>
-      <p className="text-neutral-600 my-2">{children.substring(0,100)}...</p>
+      <h5 className="text-3xl tracking">{tittle.substring(0, 10)}...</h5>
+      <p className="text-neutral-600 my-2">{children.substring(0, 100)}...</p>
     </div>
   );
 };

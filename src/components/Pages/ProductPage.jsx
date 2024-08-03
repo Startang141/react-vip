@@ -89,7 +89,7 @@ const Productpage = () => {
       <div className="flex justify-center mt-20">
         <div className="w-4/6 flex flex-wrap">
           {DataProduct.map((product) => (
-            <CardProduct key={product.id}>
+            <CardProduct key={product.id} id={product.id}>
               <CardProduct.ImageCard
                 images={product.image}
               ></CardProduct.ImageCard>
