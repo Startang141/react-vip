@@ -3,19 +3,19 @@ import Button from "../Elements/Button/Button";
 const CardProduct = (props) => {
   const { children } = props;
   return (
-    <div className="bg-white shadow-md w-full max-w-sm rounded-lg mx-2 flex flex-col justify-between border border-gray-200">
+    <div className="bg-white shadow-md w-full max-w-xs rounded-lg mx-2 my-2 flex flex-col justify-between border border-gray-200">
       {children}
     </div>
   );
 };
 
 const ImageCard = (props) => {
-  const { images = "/images/default-product.jpg" } = props;
+  const { images } = props;
   return (
     <a href="">
       <img
         src={images}
-        className="w-full h-40 rounded-t-lg object-cover"
+        className="w-full h-40 rounded-t-lg object-contain"
         alt=""
       />
     </a>
@@ -26,8 +26,8 @@ const BodyCard = (props) => {
   const { children, tittle = "Business Premium Elite" } = props;
   return (
     <div className="px-5 py-2 h-full">
-      <h5 className="text-3xl tracking">{tittle}</h5>
-      <p className="text-neutral-600 my-2">{children}</p>
+      <h5 className="text-3xl tracking">{tittle.substring(0,10)}...</h5>
+      <p className="text-neutral-600 my-2">{children.substring(0,100)}...</p>
     </div>
   );
 };
@@ -37,8 +37,8 @@ const FooterCard = (props) => {
   return (
     <div className="flex items-center justify-between px-5 pb-4">
       <span className="font-semibold text-xl text-neutral-800 tracking-normal">
-        Rp.{" "}
-        {price.toLocaleString("id-ID", { stlyes: "currency", currency: "IDR" })}
+        ${" "}
+        {price.toLocaleString("id-ID", { stlyes: "currency", currency: "USD" })}
       </span>
       <Button
         classname="bg-blue-700 cursor-pointer"

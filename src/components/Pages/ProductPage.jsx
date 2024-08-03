@@ -1,36 +1,53 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
+import { getUsername } from "../../services/auth.service";
+import { getProduct } from "../../services/product.service";
 import Button from "../Elements/Button/Button";
 import CardProduct from "../Fragments/CardProduct";
 
-const DataProduct = [
-  {
-    id: 1,
-    image: "/images/product-1.jpg",
-    title: "Corporate Premium Elite",
-    price: 500000,
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima laudantium, aperiam possimus nihil alias consequuntur dicta aspernatur repellat molestiae similique tempore aut eius.",
-  },
-  {
-    id: 2,
-    title: "Business Premium Elite",
-    image: "/images/product-1.jpg",
-    price: 1000000,
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-  },
-];
-
-const email = localStorage.getItem("email");
+// const DataProduct = [
+//   {
+//     id: 1,
+//     image: "/images/product-1.jpg",
+//     title: "Corporate Premium Elite",
+//     price: 500000,
+//     description:
+//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima laudantium, aperiam possimus nihil alias consequuntur dicta aspernatur repellat molestiae similique tempore aut eius.",
+//   },
+//   {
+//     id: 2,
+//     title: "Business Premium Elite",
+//     image: "/images/product-1.jpg",
+//     price: 1000000,
+//     description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+//   },
+// ];
 
 const Productpage = () => {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [DataProduct, setDataProduct] = useState([]);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart")) || []);
   }, []);
+
+  useEffect(() => {
+    getProduct((data) => {
+      setDataProduct(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUsername(getUsername(token));
+    } else {
+      window.location.href = "/login";
+    }
+  });
 
   useEffect(() => {
     const sum = cart.reduce((acc, item) => {
@@ -38,11 +55,10 @@ const Productpage = () => {
       return acc + product.price * item.qty;
     }, 0);
     setTotalPrice(sum);
-  }, [cart]);
+  }, [cart, DataProduct]);
 
   const handleLogout = () => {
-    localStorage.removeItem("email");
-    localStorage.removeItem("password");
+    localStorage.removeItem("token");
     window.location.href = "/login";
   };
   const handleAddToCart = (id) => {
@@ -73,7 +89,7 @@ const Productpage = () => {
   return (
     <>
       <div className="shadow-md h-20 flex justify-end items-center">
-        {email}
+        {username}
         <Button
           text="Logout"
           classname="mx-4 bg-black"
@@ -81,7 +97,7 @@ const Productpage = () => {
         />
       </div>
       <div className="flex justify-center mt-20">
-        <div className="w-4/6 flex">
+        <div className="w-4/6 flex flex-wrap">
           {DataProduct.map((product) => (
             <CardProduct key={product.id}>
               <CardProduct.ImageCard
@@ -100,11 +116,6 @@ const Productpage = () => {
         </div>
         <div className="w-2/6">
           <h2 className="text-3xl font-semibold text-blue-600">Cart</h2>
-          <ul>
-            {cart.map((item) => {
-              return <li>{item.id}</li>;
-            })}
-          </ul>
           <table className="table-auto border-separate text-left border-spacing-2">
             <thead>
               <tr>
@@ -121,15 +132,22 @@ const Productpage = () => {
                 );
                 return (
                   <tr>
-                    <td>{product.title}</td>
+                    <td>{product.title.substring(0, 10)}...</td>
                     <td>
+                      ${" "}
                       {product.price.toLocaleString("id-ID", {
                         stlyes: "currency",
-                        currency: "IDR",
+                        currency: "USD",
                       })}
                     </td>
                     <td>{item.qty}</td>
-                    <td>{product.price * item.qty}</td>
+                    <td>
+                      ${" "}
+                      {(product.price * item.qty).toLocaleString("id-ID", {
+                        styles: "currency",
+                        currency: "USD",
+                      })}
+                    </td>
                     <td>
                       <Button
                         classname="bg-red-600"
@@ -143,10 +161,10 @@ const Productpage = () => {
               <tr ref={viewTotalPrice} className="font-bold">
                 <td colSpan={3}>Total Price</td>
                 <td className="col-span-2">
-                  Rp
+                  ${" "}
                   {totalPrice.toLocaleString("id-ID", {
                     stlyes: "currency",
-                    currency: "IDR",
+                    currency: "USD",
                   })}
                 </td>
               </tr>
