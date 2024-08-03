@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
+import { useLogin } from "../../hook/useLogin";
+import { useLogout } from "../../hook/useLogout";
 import { getUsername } from "../../services/auth.service";
 import { getProduct } from "../../services/product.service";
 import Button from "../Elements/Button/Button";
@@ -28,7 +30,8 @@ const Productpage = () => {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [DataProduct, setDataProduct] = useState([]);
-  const [username, setUsername] = useState("");
+  const username = useLogin();
+  const handleLogout = useLogout();
 
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart")) || []);
@@ -41,15 +44,6 @@ const Productpage = () => {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setUsername(getUsername(token));
-    } else {
-      window.location.href = "/login";
-    }
-  });
-
-  useEffect(() => {
     const sum = cart.reduce((acc, item) => {
       const product = DataProduct.find((product) => product.id === item.id);
       return acc + product.price * item.qty;
@@ -57,10 +51,6 @@ const Productpage = () => {
     setTotalPrice(sum);
   }, [cart, DataProduct]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-  };
   const handleAddToCart = (id) => {
     if (cart.find((item) => item.id === id)) {
       setCart(
