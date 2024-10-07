@@ -36,7 +36,7 @@ const BodyCard = (props) => {
 };
 
 const FooterCard = (props) => {
-  const { price = 1000000, handleAddToCart, id } = props;
+  const { price = 1000000, id } = props;
   const dispatch = useDispatch();
   return (
     <div className="flex items-center justify-between px-5 pb-4">
