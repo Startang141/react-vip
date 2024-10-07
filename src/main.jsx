@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./components/Pages/login.jsx";
@@ -9,6 +8,8 @@ import ErrorPage from "./components/Pages/404.jsx";
 import Productpage from "./components/Pages/ProductPage.jsx";
 import ProfilePage from "./components/Pages/profile.jsx";
 import DetailProductPage from "./components/Pages/detailProduct.jsx";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,8 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     {/* <App /> */}
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
