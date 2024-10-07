@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
+import { DarkMode } from "../../context/DarkMode";
 import Button from "../Elements/Button/Button";
 
 const TableCart = (props) => {
   const { DataProduct } = props;
   const [TotalPrice, setTotalPrice] = useState(0);
+  const { isDarkMode } = useContext(DarkMode);
   //how to get data from store redux
   const cart = useSelector((state) => state.cart.data);
 
@@ -31,7 +33,11 @@ const TableCart = (props) => {
   };
 
   return (
-    <table className="table-auto border-separate text-left border-spacing-2">
+    <table
+      className={`table-auto border-separate text-left border-spacing-2 ${
+        isDarkMode && "text-white"
+      }`}
+    >
       <thead>
         <tr>
           <th>Product</th>

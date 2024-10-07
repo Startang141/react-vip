@@ -1,17 +1,16 @@
-import { useEffect } from "react";
-import { useRef } from "react";
+import { useContext, useEffect } from "react";
 import { useState } from "react";
+import { DarkMode } from "../../context/DarkMode";
 import { useLogin } from "../../hook/useLogin";
 import { useLogout } from "../../hook/useLogout";
-import { getUsername } from "../../services/auth.service";
 import { getProduct } from "../../services/product.service";
-import Button from "../Elements/Button/Button";
 import CardProduct from "../Fragments/CardProduct";
 import TableCart from "../Fragments/TableCart";
 import Navbar from "../Layouts/Navbar";
 
 const Productpage = () => {
   const [DataProduct, setDataProduct] = useState([]);
+  const { isDarkMode } = useContext(DarkMode);
   useLogin();
   useLogout();
 
@@ -24,7 +23,11 @@ const Productpage = () => {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center mt-20">
+      <div
+        className={`flex justify-center pt-20 ${
+          isDarkMode && "bg-slate-900"
+        }`}
+      >
         <div className="w-4/6 flex flex-wrap">
           {DataProduct.map((product) => (
             <CardProduct key={product.id}>
