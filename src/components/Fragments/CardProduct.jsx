@@ -2,26 +2,24 @@ import { Link } from "react-router-dom";
 import Button from "../Elements/Button/Button";
 
 const CardProduct = (props) => {
-  const { children, id } = props;
+  const { children } = props;
   return (
-    <Link to={`/products/${id}`}>
-      <div className="bg-white shadow-md w-full max-w-xs rounded-lg mx-2 my-2 flex flex-col justify-between border border-gray-200">
-        {children}
-      </div>
-    </Link>
+    <div className="bg-white shadow-md w-full max-w-xs rounded-lg mx-2 my-2 flex flex-col justify-between border border-gray-200">
+      {children}
+    </div>
   );
 };
 
 const ImageCard = (props) => {
-  const { images } = props;
+  const { images, id } = props;
   return (
-    <a href="">
+    <Link to={`/products/${id}`}>
       <img
         src={images}
         className="w-full h-40 rounded-t-lg object-contain"
         alt=""
       />
-    </a>
+    </Link>
   );
 };
 
